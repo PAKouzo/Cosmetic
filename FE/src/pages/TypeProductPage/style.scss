@@ -1,0 +1,28 @@
+.type-container{
+    padding: 0 120px;
+    background: #efefef;
+    flex-wrap: nowrap;
+    padding-top: 10px;
+    .navbar-item{
+        background: #fff;
+        margin-right: 10px;
+        padding: 10px;
+        border-radius: 6px;
+        height: fit-content;
+    }
+    .card-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .card-item{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        }
+        .pagination-container{
+            margin-top: 15px;
+        }
+    }
+}

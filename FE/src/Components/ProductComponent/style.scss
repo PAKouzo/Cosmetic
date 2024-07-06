@@ -1,0 +1,90 @@
+.product-container{
+    display: flex;
+    padding: 16px;
+    background: #fff;
+        .product-item-container{
+            padding-top: 10px;
+            justify-content: space-around;
+            .small-image-item{
+                width: 100px;
+                height: 100px;
+            }
+            .product-item{
+                display: flex;
+                flex-basis: unset;
+            }
+        }
+    .details-container{
+        padding-left: 10px;
+        border-left: 1px solid #e5e5e5;
+        .title-detail{
+            margin: 0 0 4px;
+            color: rgb(36, 36, 36);
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 32px;
+            word-break: break-work;
+        }
+        .price-detail{
+            margin-top: 20px;
+            color: black;
+            font-size: 30px;
+            font-weight: 400;
+            background: #f8f6f6;
+        }
+        .add-detail{
+            margin-top: 10px;
+            .delivery-address{
+                text-decoration: underline;
+                font-size: 15px;
+                line-height: 24px;
+                font-weight: 500;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .change-address{
+                color: rgb(11, 116, 229);
+                font-size: 16px;
+                line-height: 24px;
+                font-weight: 500;
+            }
+        }
+        .number-detail{
+            display: flex;
+            margin: 10px 0;
+            padding: 10px 0;
+            border-top: 1px solid #e5e5e5;
+            border-bottom: 1px solid #e5e5e5;
+            flex-direction: column;
+            gap: 4px;
+            .change-number{
+                font-size: 15px;
+            }
+            .number-button{
+                width: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                gap: 4px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                .MinusOutlined{
+                    font-size: 15px;
+                    background: transparent;
+                    border: none;
+                }
+                .PlusOutlined{
+                    font-size: 15px;
+                    background: transparent;
+                    border: none;
+                }
+            }
+        }
+        .purchase{
+            display: flex;
+            gap: 4px;
+            margin-top: 15px;
+        }
+    }
+}
