@@ -1,4 +1,4 @@
-import UserModel from "../models/users.js";
+import UserService from "../services/UserService.js";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 dotenv.config();
 const { TOKEN_SECRET } = process.env;
 const UserCTL = {
-    signup: async(req, res)=>{
+    create: async(req, res)=>{
     try{
         const {name, email, password, confirmPassword, phone} = req.body;
         const salt = bcrypt.genSaltSync(10);
@@ -31,7 +31,7 @@ const UserCTL = {
             });
         }
         console.log('isCheckEmail: ', isCheckEmail)
-        const user = await UserModel.create({
+        const user = await UserService.create({
           name,
           email,
           password: hash,
@@ -47,6 +47,46 @@ const UserCTL = {
         return res.status(404).json({
             message: e
         })
-    }}
+    }},
+
+
+    updateUser: async(req, res)=>{
+        try{
+            const userId = req.params.id
+            const data = req.body
+            if(!userId){
+                return res.status(200).json({
+                    status: 'ERR',
+                    message: 'The userId is required'
+                })
+            }
+            const response = await UserService.updateUser(userId, data)
+            return res.status(200).json(response)
+        }
+        catch(e){
+            return res.status(404).json({
+                message: e
+            })
+        }},
+
+
+        deleteUser: async(req, res)=>{
+            try{
+                const userId = req.params.id
+                if(!userId){
+                    return res.status(200).json({
+                        status: 'ERR',
+                        message: 'The userId is required'
+                    })
+                }
+                const response = await UserService.deleteUser(userId, data)
+                return res.status(200).json(response)
+            }
+            catch(e){
+                return res.status(404).json({
+                    message: e
+                })
+            }}
 }
+
 export default UserCTL;
