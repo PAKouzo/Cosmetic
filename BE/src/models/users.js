@@ -25,11 +25,11 @@ const userSchema = new mongoose.Schema({
     },
     access_Token: {
         type: String,
-        required: true
+        required: false
     },
     refresh_Token: {
         type: String, 
-        required: true
+        required: false
     }},
     {
         timestamps: true
