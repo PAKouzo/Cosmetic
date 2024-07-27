@@ -1,45 +1,18 @@
-import UserService from "../services/UserService.js";
-import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
+import UserModel from "../models/users";
 
-dotenv.config();
-const { TOKEN_SECRET } = process.env;
-const UserCTL = {
-    create: async(req, res)=>{
+const UserCTL = {  //Định nghĩa UserCTL để chứa các phương thức yêu cầu
+    signup: async(req, res)=>{
     try{
-        const {name, email, password, confirmPassword, phone} = req.body;
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(password, salt);  
-        const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        const isCheckEmail = reg.test(email)
-        if(!name || !email || !password || !confirmPassword || !phone){
-            return res.status(200).json({
-                status: "error",
-                message: "The input is required"
-            })
-        }
-        else if(!isCheckEmail){
-            return res.status(200).json({
-              status: "error",
-              message: "The input is email",
-            });
-        }else if(password !== confirmPassword){
-            return res.status(200).json({
-              status: "error",
-              message: "The password is equal",
-            });
-        }
-        console.log('isCheckEmail: ', isCheckEmail)
-        const user = await UserService.create({
-          name,
-          email,
-          password: hash,
-          confirmPassword,
-          phone,
+        const { name, email, password, confirmPassword, phone } = req.body //Lấy các thông tin cần thiết từ body. Đây là các dữ liệu người dùng gửi lên đăng kí
+        const user = await UserModel.create({ //Sử dụng UserModel để tạo người dùng mới trong CSDL. Dùng hàm await để đợi 1 Promise hoàn thành, nó sẽ tạm dừng hàm async cho đến khi Promise được hoàn thành hoặc bị từ chối
+            name,
+            email,
+            password,
+            confirmPassword,
+            phone,
         });
-        return res.status(200).send({
-            message: "Register successfull",
+        res.status(200).send({ //Nếu tạo người dùng thành công gửi phản hồi về
+            message:"Register Successfully!",
             data: user
         })
     }
@@ -48,6 +21,33 @@ const UserCTL = {
             message: e
         })
     }},
+
+    login: async(req, res)=>{
+        try{
+            const { email, password } = req.body 
+            const user = await UserModel.find({ 
+                email,
+                password,
+            });
+            if (!user){
+                return res.status(404).send({
+                    message:"User not found";
+                })
+            }
+            res.status(200).send({ 
+                message:"Login Successfully!",
+                data: user
+            })
+        }
+        catch(e){
+            return res.status(404).json({
+                message: e,
+                user:{
+                    email: users.email,
+                password: users.password
+                }
+            })
+        }},
 
 
     updateUser: async(req, res)=>{
