@@ -25,17 +25,17 @@ const userSchema = new mongoose.Schema({
     },
     access_Token: {
         type: String,
-        required: true
-    },
-    birthday: {
-        type: String
-    },
-    bio: {
-        type: String
+        required: false
     },
     refresh_Token: {
         type: String, 
-        required: true
+        required: false
+    },
+    bio: {
+        type: String,
+    },
+    birthday: {
+        type: String,
     }},
     {
         timestamps: true
