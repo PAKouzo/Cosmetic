@@ -27,6 +27,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    birthday: {
+        type: String
+    },
+    bio: {
+        type: String
+    },
     refresh_Token: {
         type: String, 
         required: true
