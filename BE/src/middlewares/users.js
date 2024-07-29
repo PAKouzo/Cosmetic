@@ -1,4 +1,4 @@
-import UserModel from "../models/users";
+import UserModel from "../models/users.js";
 
 const UserMDW = {
     checkSignup: async(req, res, next)=>{
