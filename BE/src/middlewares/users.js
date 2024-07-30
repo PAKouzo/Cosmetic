@@ -42,6 +42,7 @@
 
 import UserModel from "../models/users.js";
 import { comparePassword } from "../helpers/bcryptjs.js";
+import jwt from "jsonwebtoken";
 
 const UserMDW = {
         checkSignup: async (req, res, next) => {
@@ -84,36 +85,56 @@ const UserMDW = {
                 });
             }
         },
-        checkUpdateUser: async (req, res, next) => {
+        // checkUpdateUser: async (req, res, next) => {
+        //     const authHeader = req.headers['authorization'];
+        //     if (!authHeader) {
+        //         return res.status(401).json({
+        //             message: 'Access token is missing',
+        //             status: 'Failed',
+        //         });
+        //     }
+            
+        //     const token = authHeader.split(' ')[1];
+            
+        //     try {
+        //         // Xác thực token
+        //         jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+        //             if (err) {
+        //                 console.log("JWT verification failed: ", err.message);
+        //                 return res.status(401).json({
+        //                     message: 'Invalid or expired token',
+        //                     status: 'Failed',
+        //                 });
+        //             }
+        //             req.user = decoded;
+        //             next();
+        //         });
+        //     } catch (e) {
+        //         return res.status(401).json({
+        //             message: 'Access token is invalid',
+        //             status: 'Failed',
+        //         });
+        //     }
+        // },
+        validateToken: async(req, res, next) => {
             const authHeader = req.headers['authorization'];
-            if (!authHeader) {
-                return res.status(401).json({
-                    message: 'Access token is missing',
-                    status: 'Failed',
-                });
+            if (authHeader) {
+              const token = authHeader.split(' ')[1]; // Tách access token từ chuỗi "Bearer {access_token}"
+          
+              // Xác thực access token
+              jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => { //Khuyến khích: không sử dụng logic jwt.verify trong try-catch vì lỗi xác thực token không đi vào trong khối catch, mà dùng thẳng callback để đảm bảo lỗi chính xác
+                if (err) {
+                  return res.status(401).json({ message: 'Access token is invalid' });
+                } else {
+                  // Lưu thông tin người dùng từ access token vào req
+                  // tham số req sẽ được chuyển tiếp tới các handler tiếp theo
+                  req.user = decoded; 
+                  next();
+                }
+              });
+            } else {
+              res.status(401).json({ message: 'Access token is missing' });
             }
-            
-            const token = authHeader.split(' ')[1];
-            
-            try {
-                // Xác thực token
-                jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
-                    if (err) {
-                        console.log("JWT verification failed: ", err.message);
-                        return res.status(401).json({
-                            message: 'Invalid or expired token',
-                            status: 'Failed',
-                        });
-                    }
-                    req.user = decoded;
-                    next();
-                });
-            } catch (e) {
-                return res.status(401).json({
-                    message: 'Access token is invalid',
-                    status: 'Failed',
-                });
-            }
-        },
+          },
 };
 export default UserMDW;
