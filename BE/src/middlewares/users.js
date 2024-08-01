@@ -135,6 +135,6 @@ const UserMDW = {
             } else {
               res.status(401).json({ message: 'Access token is missing' });
             }
-          },
+        },
 };
 export default UserMDW;

@@ -1,27 +1,3 @@
-
-
-
-//     //     deleteUser: async(req, res)=>{
-//     //         try{
-//     //             const userId = req.params.id
-//     //             if(!userId){
-//     //                 return res.status(200).json({
-//     //                     status: 'ERR',
-//     //                     message: 'The userId is required'
-//     //                 })
-//     //             }
-//     //             const response = await UserService.deleteUser(userId, data)
-//     //             return res.status(200).json(response)
-//     //         }
-//     //         catch(e){
-//     //             return res.status(404).json({
-//     //                 message: e
-//     //             })
-//     //         }}
-// }
-
-
-
 import UserModel from "../models/users.js";
 import { hashPassword } from "../helpers/bcryptjs.js";
 import { comparePassword } from "../helpers/bcryptjs.js";
@@ -109,5 +85,60 @@ const UserCTL = { //Định nghĩa UserCTL để chứa các phương thức yê
             });
         }
     },
+    
+    deleteUser: async (req, res) => {
+        try {
+            const { userID } = req.params; // Lấy userID từ params
+            const userExist = await UserModel.findById(userID);
+            if (!userExist) {
+                return res.status(404).json({ 
+                    message: "User not found." 
+                });
+            }
+            await UserModel.findByIdAndDelete(userID);
+            res.status(200).json({ 
+                message: "User deleted successfully." 
+            });
+            } catch (e) {
+                res.status(404).json({ 
+                    message: e
+            });
+            }
+      },
+    getUserByID: async (req, res) => {
+        try {
+            const { userID } = req.params;
+            const userExist = await UserModel.findById(userID);
+            if(!userExist) {
+                return res.status(404).json({
+                    message: "User not found."
+                });
+            }
+            res.status(200).json({
+                userExist
+            });
+        } catch (e) {
+            res.status(404).json({
+                message: e
+            });
+        }
+    },
+    getAllUser: async (req, res) => {
+        try {
+            const userData = await UserModel.find();
+            if(!userData) {
+                return res.status(404).json({
+                    message: "User data not found."
+                });
+            }
+            res.status(200).json({
+                userData
+            });
+        } catch (e) {
+            res.status(404).json({
+                message: e
+            });
+        }
+    }
 }
 export default UserCTL;

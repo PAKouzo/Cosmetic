@@ -19,4 +19,7 @@ const userRouter = Router();
 userRouter.post('/signup', UserMDW.checkSignup, UserCTL.signup)
 userRouter.post('/login', UserMDW.checkLogin, UserCTL.login)
 userRouter.put('/updateUser/:userID', UserMDW.validateToken,UserCTL.updateUser)
+userRouter.delete('/deleteUser/:userID',UserCTL.deleteUser)
+userRouter.get('/getUserByID/:userID',UserCTL.getUserByID)
+userRouter.get('/getAllUser',UserCTL.getAllUser)
 export default userRouter;

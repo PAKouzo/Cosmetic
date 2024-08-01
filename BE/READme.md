@@ -1,7 +1,7 @@
 1. Users:
-- Xóa người dùng (deleteUser)
-- Lấy danh sách tất cả người dùng (getAllUsers)
-- Lấy người dùng theo ID hoặc username(getIDUsers)
+- Xóa người dùng (deleteUser) x
+- Lấy danh sách tất cả người dùng (getAllUsers) x
+- Lấy người dùng theo ID hoặc username(getIDUsers) x
 
 2. Products:
 - Tạo sản phẩm (createProduct)
