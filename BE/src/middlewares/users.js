@@ -1,45 +1,3 @@
-
-
-
-//             checkUpdateUser: async(req, res, next)=>{
-//                 const authHeader = req.headers['authorization']
-//                 try{
-//                     const token = authHeader.split('')[1];
-//                     jwt.verify(token, TOKEN_SECRET, (err, decoded) => {
-//                         if(err){
-//                             console.log("JWT verification failded: ", err.message);
-//                             next
-//                         }
-//                     })
-//                 }
-//                 catch(e){
-//                     return res.status(404).json({
-//                         message: 'Access token is missing'
-//                     })
-//                 }},
-
-//                 // updateUser: async(req, res)=>{
-//                 //     try{
-//                 //         const userId = req.params.id
-//                 //         const data = req.body
-//                 //         if(!userId){
-//                 //             return res.status(200).json({
-//                 //                 status: 'ERR',
-//                 //                 message: 'The userId is required'
-//                 //             })
-//                 //         }
-//                 //         const response = await UserService.updateUser(userId, data)
-//                 //         return res.status(200).json(response)
-//                 //     }
-//                 //     catch(e){
-//                 //         return res.status(404).json({
-//                 //             message: e
-//                 //         })
-//                 //     }},
-// }
-
-// export default UserMDW;
-
 import UserModel from "../models/users.js";
 import { comparePassword } from "../helpers/bcryptjs.js";
 import jwt from "jsonwebtoken";
@@ -85,37 +43,6 @@ const UserMDW = {
                 });
             }
         },
-        // checkUpdateUser: async (req, res, next) => {
-        //     const authHeader = req.headers['authorization'];
-        //     if (!authHeader) {
-        //         return res.status(401).json({
-        //             message: 'Access token is missing',
-        //             status: 'Failed',
-        //         });
-        //     }
-            
-        //     const token = authHeader.split(' ')[1];
-            
-        //     try {
-        //         // Xác thực token
-        //         jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
-        //             if (err) {
-        //                 console.log("JWT verification failed: ", err.message);
-        //                 return res.status(401).json({
-        //                     message: 'Invalid or expired token',
-        //                     status: 'Failed',
-        //                 });
-        //             }
-        //             req.user = decoded;
-        //             next();
-        //         });
-        //     } catch (e) {
-        //         return res.status(401).json({
-        //             message: 'Access token is invalid',
-        //             status: 'Failed',
-        //         });
-        //     }
-        // },
         validateToken: async(req, res, next) => {
             const authHeader = req.headers['authorization'];
             if (authHeader) {
