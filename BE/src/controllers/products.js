@@ -99,14 +99,14 @@ const ProductCTL = {
     },
     getAllProduct: async (req, res) => {
       try {
-          const userData = await UserModel.find();
-          if(!userData) {
+          const productData = await ProductModel.find();
+          if(!productData) {
               return res.status(404).json({
-                  message: "User data not found."
+                  message: "Product data not found."
               });
           }
           res.status(200).json({
-              userData
+              productData
           });
       } catch (e) {
           res.status(404).json({
