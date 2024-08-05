@@ -8,4 +8,6 @@ productRouter.put('/updateProduct/:productID', ProductCTL.updateProduct)
 productRouter.delete('/deleteProduct/:productID', ProductCTL.deleteProduct)
 productRouter.get('/getProductByID/', ProductCTL.getProductByID)
 productRouter.get('/getAllProduct/', ProductCTL.getAllProduct)
+productRouter.put('/wishlist/:userID', ProductCTL.addToWishlist)
+productRouter.post('/rating/:productID', ProductCTL.rating)
 export default productRouter;

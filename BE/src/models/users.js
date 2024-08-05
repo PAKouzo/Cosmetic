@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
     },
     birthday: {
         type: String,
+    },
+    wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "products" }],
+    refreshToken: {
+      type: String,
     }},
     {
         timestamps: true
