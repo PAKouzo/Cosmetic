@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Collections from "../database/collections.js";
 
 const orderSchema = new mongoose.Schema(
   {
@@ -93,5 +94,5 @@ const orderSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-const OrdertModel = mongoose.model("order", orderSchema);
+const OrdertModel = mongoose.model(Collections.ORDER, orderSchema);
 export default OrdertModel;

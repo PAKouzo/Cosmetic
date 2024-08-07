@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Collections from '../database/collections.js'
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -35,5 +36,5 @@ const userSchema = new mongoose.Schema({
         timestamps: true
     }
 )
-const UserModel = mongoose.model("users", userSchema);
+const UserModel = mongoose.model(Collections.USERS, userSchema);
 export default UserModel;

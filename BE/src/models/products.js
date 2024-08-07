@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Collections from "../database/collections.js";
 
 const productSchema = new mongoose.Schema(
   {
@@ -36,5 +37,5 @@ const productSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-const ProductModel = mongoose.model("products", productSchema);
+const ProductModel = mongoose.model(Collections.PRODUCTS, productSchema);
 export default ProductModel;
