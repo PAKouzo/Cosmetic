@@ -5,7 +5,7 @@ import orderRouter from "./order.js";
 
 const router = Router();
 
-router.use('/users', userRouter)
+router.use('/auth', userRouter)
 router.use('/products', productRouter)
 router.use('/order', orderRouter)
 export default router;

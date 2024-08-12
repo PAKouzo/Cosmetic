@@ -8,10 +8,6 @@ const productSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    image: {
-      type: String,
-      required: true,
-    },
     type: {
       type: String,
       required: true,
@@ -24,14 +20,17 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    rating: {
-      type: Number,
-      required: true,
-    },
     description: {
       type: String,
       required: true,
     },
+    ratings: [
+      {
+        star: Number,
+        comment: String,
+        postedby: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+      },
+    ],
   },
   {
     timestamps: true,

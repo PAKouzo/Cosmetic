@@ -1,6 +1,7 @@
 import UserModel from "../models/users.js";
 import { hashPassword } from "../helpers/bcryptjs.js";
 import Token from "../helpers/token.js";
+import configEmail from "../configs/nodemailer.js";
 
 const UserCTL = {
   signup: async (req, res) => {
@@ -50,7 +51,7 @@ const UserCTL = {
     }
   },
 
-  updateUser: async (req, res) => {
+  update: async (req, res) => {
     try {
       const { userID } = req.params;
       const { phone, birthday, bio } = req.body;
@@ -84,7 +85,7 @@ const UserCTL = {
     }
   },
 
-  deleteUser: async (req, res) => {
+  delete: async (req, res) => {
     try {
       const { userID } = req.params; 
       const userExist = await UserModel.findById(userID);
@@ -138,5 +139,41 @@ const UserCTL = {
       });
     }
   },
+  // refreshToken: async (req, res) => {
+  //   try{
+  //     const authHeader = req.headers["authorization"];
+  //     if (!authHeader) throw new Error("Token is required!");
+  //     const token = authHeader.split(" ")[1];
+  //     const newAT = Token.refeshToken(token)
+  //     res.status(200).send({
+  //       message: 'Refresh token successfully!',
+  //       token: newAT
+  //     })
+  //   }
+  //   catch(e){
+  //     res.status(401).send({
+  //       message: e.message,
+  //       token: null,
+  //     })
+  //   }
+  // }
+  sendEmail: async (req, res) => {
+    try{
+      const {email} = req.body
+      // const data = await UserModel.find({email})
+      if (!email) throw new Error("Email not existed!");
+      const sendMail = configEmail(email);
+      res.status(200).send({
+        message: "Send email succesfully!",
+        data: sendMail
+      })
+    }
+    catch(e){
+      res.status(401).send({
+        message: e.message,
+        data: null
+      })
+    }
+  }
 };
 export default UserCTL;
